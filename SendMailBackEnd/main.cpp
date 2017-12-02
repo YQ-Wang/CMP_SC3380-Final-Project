@@ -1,6 +1,5 @@
 #include <QCoreApplication>
 #include "database.h"
-#include "sendmailclass.h"
 #include <unistd.h>
 
 DBManager::DBManager(const QString& path)
@@ -126,9 +125,11 @@ void DBManager::InsertItem(const int ItemId, const QString &ItemName, const QStr
 
 }
 
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
 
     DBManager d1("//Users//Ben//Dropbox//cs3380//FP.db");
 
@@ -152,9 +153,9 @@ int main(int argc, char *argv[])
         ItemNameList.clear();
         BorrowTimeList.clear();
         ReturnTimeList.clear();
-        MailFlagList.clear();
+        //MailFlagList.clear();
 
-        query.exec("SELECT julianday('now','localtime')*1440 - julianday(BorrowTime)*1440 From Item where Status = 0;");
+        query.exec("SELECT julianday(ReturnTime)*1440 - julianday('now','localtime')*1440 From Item where Status = 0;");
         query1.exec("SELECT PawPrint from Item where Status = 0;");
         query2.exec("SELECT ItemName from Item where Status = 0;");
         query3.exec("SELECT BorrowTime from Item where Status = 0;");
@@ -180,21 +181,31 @@ int main(int argc, char *argv[])
         while(query4.next()){
             QString ReturnTime = query4.value(0).toString();
             ReturnTimeList.push_back(ReturnTime.toStdString());
+            for(int j = 0; j < TimeList.size();j++){
+                if(TimeList[j] <= 60 && MailFlagList[j] == true){
+                    MailFlagList[j] = true;
+                 }
+            else{
+                MailFlagList[j] = false;
+            }
+        }
         }
 
 
+
         while( i < TimeList.size()){
-            cout << TimeList[i] << endl;
+            usleep(10000);
+            cout << TimeList[i] << "-----"<< MailFlagList[i] <<   endl;
             if(TimeList[i] <= 60 && MailFlagList[i] == false){
                 //write email here
-
                 string SentMailCommand = "echo \" Dear Student, \n  You have borrwed " + ItemNameList[i]
                         + " in " + BorrowTimeList[i] +  ". It has to be returned by " + ReturnTimeList[i] +  ", Please return it in time to avoid charge.\nMizzou Checkout\""
                           " | mail -s \"Item return notice\" \" " + PawPrintList[i] + "@mail.missouri.edu\"";
                 QProcess *process = new QProcess;
                 const char *SentMailCommandInChar = SentMailCommand.c_str();
-                process->start("bash" );
-                process->write(SentMailCommandInChar);
+                process->start("bash", QStringList() << "-c" <<  SentMailCommandInChar);
+//                process->write(SentMailCommandInChar);
+//                process->closeWriteChannel();
                 MailFlagList[i] = true;
                 //test output
                 cout << SentMailCommand;
@@ -207,7 +218,9 @@ int main(int argc, char *argv[])
 
 
         }
-        usleep(1000);
+
     }
+
+
     return a.exec();
 }

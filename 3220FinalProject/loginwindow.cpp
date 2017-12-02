@@ -3,7 +3,6 @@
 #include "signupwindow.h"
 #include "mainwindow.h"
 #include "adminview.h"
-#include "sendmail.h"
 #include <QProcess>
 
 LoginWindow::LoginWindow(QWidget *parent) : QDialog(parent), ui(new Ui::LoginWindow)
@@ -48,16 +47,11 @@ void LoginWindow::on_pushButton_Login_clicked()
             QProcess *process = new QProcess(this);
 
             process->start("//Users//Ben//Dropbox//cs3380//build-SendMailBackEnd-Desktop_Qt_5_10_0_clang_64bit-Debug//SendMailBackEnd");
-//            SendMail SM;
-//            SM.data = data;
-//            SM.start();
             AdminView av;
             av.data = data;
             av.setModal(true);
             av.exec();
-
         }
-
 
     }
     else

@@ -21,7 +21,6 @@ public:
     QString Location;
     int Status;
     int BorrowLength;
-    //2 times...
 
 private slots:
     void on_pushButton_Add_clicked();

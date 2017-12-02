@@ -22,8 +22,6 @@ DBManager::DBManager(const QString& path)
 void DBManager::CreateUser(const QString &Pawprint, const QString &Name, const int StudentId, const int UserType, const QString &Password)
 {
     QSqlQuery query;
-//    query.prepare("INSERT INTO User (Pawprint, Name, StudentId, UserType, Password) "
-//                  "values(:Pawprint, :Name, :StudentId, :UserType, :Password)");
     query.prepare("UPDATE User SET Pawprint = :Pawprint, Name = :Name, UserType = :UserType, Password = :Password WHERE StudentId = :StudentId");
 
     query.bindValue(":Pawprint", Pawprint);

@@ -34,10 +34,8 @@ void MainWindow::on_pushButton_Load_clicked()
 
 void MainWindow::on_pushButton_CheckOut_clicked()
 {
-    //Need to add error handling
     QString id = ui->lineEdit_ItemId->text();
     int ItemId = id.toInt();
-   // <<"correct ID is" << ItemId;
     QSqlQuery query;
     query.prepare("UPDATE Item set Status = 0, Pawprint = :Pawprint, BorrowTime = datetime('now', 'localtime'), ReturnTime = datetime('now','localtime','+' || BorrowLength || ' minutes') where ItemId = :ItemId");
     query.bindValue(":ItemId",ItemId);
@@ -58,8 +56,6 @@ void MainWindow::on_pushButton_Return_clicked()
     if (!cap.isOpened())  // if not success, exit program
     {
         cout << "Cannot open the video cam" << endl;
-       // return -1;
-
     }
 
     //example code from Open CV
@@ -114,9 +110,7 @@ void MainWindow::on_pushButton_Return_clicked()
             r.points(pts);
             for(int i=0;i<4;i++){
                 line(frame,pts[i],pts[(i+1)%4],Scalar(255,0,0),3);
-            }
-            //cout<<"Angle: "<<r.angle<<endl;
-        }
+            }        }
 
         imshow("ScanWindow", frame); //show the frame in "MyVideo" window
 
@@ -128,9 +122,7 @@ void MainWindow::on_pushButton_Return_clicked()
     }while(flag == 0);
     //----------------------------------------------------------------------
 
-    //Need to add error handling
     int ItemId = stoi(id);
-   // <<"correct ID is" << ItemId;
     //returning item
     QSqlQuery query;
     query.prepare("UPDATE Item set Status = 1, Pawprint = NULL where ItemId = :ItemId");
