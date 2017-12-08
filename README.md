@@ -34,3 +34,11 @@ Item.db
 CREATE TABLE Item ( ItemId INT PRIMARY KEY NOT NULL, ItemName varchar(50), Status INT NOT NULL, Location varchar(50), BorrowTime datetime, ReturnTime datetime, BorrowLength int, Pawprint varchar(50));
 ```
 
+## Entity Relationship Diagram
+![alt text](https://github.com/YQ-Wang/CMP_SC3380-Final-Project/blob/master/ERD.png "ERD")
+
+## CRUD
+* We used created multiple times during the duration of our app. we used insert into on add item to the Item table. When user is getting enrolled, user will be added to the User table.
+*	Read is the one we used most often, every error checking we need to use select statement to bind the value from the input. When we display tables, we used select statements. 
+*	We used update when item was borrowed by a user. And in the item table, the status will be updated to 0 (unavailable) and the pawprint will be updated to the pawprint of the student who borrowed item. Also, when student returns the item, it will do the reverse.
+*	We used deletion when admin is going to delete item. 
