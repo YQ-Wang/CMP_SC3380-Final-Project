@@ -2,6 +2,8 @@
 
 ***A database based Check-Out platform for University of Missouri.***
 
+## Video URL
+https://www.youtube.com/watch?v=xSwDqnKpt9g
 
 ## Members List
  - Yiqing Wang (yw283)
