@@ -22,13 +22,13 @@ On the other hand, since each item has the unique length of lending period, an a
 Our system also has an admin account which has the privilege to add and delete items from Item.db. The admin can also see the detail infomation of each borrowed item.
 
 ## Schema for the Database
-User.db
+User
 
 ```sh
 CREATE TABLE User ( Pawprint varchar(50), Name varchar(50), StudentId INT PRIMARY KEY NOT NULL, UserType INT, Password varchar(50));
 ```
 
-Item.db
+Item
 
 ```sh
 CREATE TABLE Item ( ItemId INT PRIMARY KEY NOT NULL, ItemName varchar(50), Status INT NOT NULL, Location varchar(50), BorrowTime datetime, ReturnTime datetime, BorrowLength int, Pawprint varchar(50));
