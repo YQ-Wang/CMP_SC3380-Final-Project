@@ -8,8 +8,6 @@ https://www.youtube.com/watch?v=xSwDqnKpt9g
 ## Members List
  - Yiqing Wang (yw283)
  - ChunBin Lin (clpk8)
- - Miaoqing Chen (mcc66) -- Add-On
- - Zhengyu Li (zlr25) -- Add-On
 
 ## Project Description
 This project is implemented as a check-out system for University of Missouri. 
